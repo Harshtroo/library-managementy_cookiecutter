@@ -9,12 +9,7 @@ DEV = DEBUG
 
 INSTALLED_APPS += ('debug_toolbar',)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'library_management_cookiecutter.db',
-    }
-}
+
 
 MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 

@@ -57,9 +57,9 @@ ADMIN_URL = env.str("DJANGO_ADMIN_URL", "admin")
 DATABASES = {
     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'library',
+        'NAME': 'library_management',
 
         'USER': 'harsh',
 
@@ -68,19 +68,13 @@ DATABASES = {
         'HOST': 'localhost',
 
         'PORT': '5432',
-
     }
-
 }
 
 
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
-DATABASES["default"]["OPTIONS"] = {
-    "init_command": "SET default_storage_engine=InnoDB",
-    "charset": "utf8mb4",
-    "use_unicode": True,
-}
+
 
 EMAIL_BACKEND = env.str("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 EMAIL_HOST = env.str("EMAIL_HOST", "")
@@ -98,11 +92,11 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = "Asia/Kuwait"
+TIME_ZONE = "UTC"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "en-us"
 
 
 # If you set this to False, Django will make some optimizations so as not
@@ -116,7 +110,7 @@ LANGUAGE_CODE = "en"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = normpath(join(PROJECT_ROOT, "media"))
+# MEDIA_ROOT = normpath(join(PROJECT_ROOT, "media"))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -221,8 +215,3 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Dummy gettext function
-gettext = lambda s: s
-
-LANGUAGES = [
-    ("en", gettext("en")),
-]
