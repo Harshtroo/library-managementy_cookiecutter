@@ -178,7 +178,6 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "kn_defaults.logging.middlewares.KnLogging",
 ]
 
 ROOT_URLCONF = "library_management_cookiecutter.urls"
@@ -188,10 +187,6 @@ WSGI_APPLICATION = "library_management_cookiecutter.wsgi.application"
 
 INSTALLED_APPS = [
     "user.apps.UsersConfig",
-
-    
-    
-
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -200,19 +195,6 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "django.contrib.messages",
-    # "kn_defaults.logging",
-
-    "rest_framework",
-    "rest_framework.authtoken",
-	# "djvue",
-
-    
-
-    
-
-    "compressor",
-    
-
     
 ]
 
@@ -253,20 +235,11 @@ gettext = lambda s: s
 
 LANGUAGES = [
     ("en", gettext("en")),
-    
 ]
 
 
 
-
-
-
-
-# Analytics
-GOOGLE_ANALYTICS = env.str("GOOGLE_ANALYTICS", default="")
-
 CACHE_ENGINES = {
-    
     "dummy": {
         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
     }
@@ -277,15 +250,6 @@ CACHES = {
 }
 
 
-
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-    ),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 10
-}
 
 SENTRY_DSN = env.str("SENTRY_DSN", "")
 
