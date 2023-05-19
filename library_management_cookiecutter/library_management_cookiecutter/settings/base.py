@@ -19,13 +19,7 @@ CONFIG_ROOT = dirname(dirname(abspath(__file__)))
 PROJECT_ROOT = dirname(CONFIG_ROOT)
 
 env = environ.Env()
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 
-print(PROJECT_ROOT,"???????")
-
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(env_file=join(PROJECT_ROOT, '.env'))
 
 # Absolute filesystem path to the django repo directory:
 DJANGO_ROOT = dirname(PROJECT_ROOT)
@@ -61,8 +55,25 @@ MANAGERS = ADMINS
 ADMIN_URL = env.str("DJANGO_ADMIN_URL", "admin")
 
 DATABASES = {
-    'default': env.db("DATABASE_URL", default="mysql://root:root@localhost:3306/library_management_cookiecutter")
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'library',
+
+        'USER': 'harsh',
+
+        'PASSWORD': 'harsh123',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+
+    }
+
 }
+
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 DATABASES["default"]["OPTIONS"] = {
@@ -93,18 +104,15 @@ TIME_ZONE = "Asia/Kuwait"
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = "en"
 
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-USE_L10N = True
+
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -160,11 +168,8 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.template.context_processors.csrf",
                 "django.template.context_processors.tz",
-                
-                "django.template.context_processors.static",
-
-                
-            ]
+                "django.template.context_processors.static",            
+                ]
         },
     },
 ]
@@ -195,7 +200,6 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "django.contrib.messages",
-    
 ]
 
 AUTH_USER_MODEL = "user.User"
@@ -216,41 +220,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-# KN_LOG_FILE_PATH = join(DJANGO_ROOT, "logs/log.log")
-
-# from kn_defaults.logging.defaults import get_base_logging
-# LOGGING = get_base_logging(logstash=False)
-
-# KN_LOGGING_URL_PATTERNS = []
-
-LOCALE_PATHS = (normpath(join(PROJECT_ROOT, "locale")),)
-
 # Dummy gettext function
 gettext = lambda s: s
 
 LANGUAGES = [
     ("en", gettext("en")),
 ]
-
-
-
-CACHE_ENGINES = {
-    "dummy": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-    }
-}
-
-CACHES = {
-    "default": CACHE_ENGINES[env.str("CACHE", default="dummy")]
-}
-
-
-
-SENTRY_DSN = env.str("SENTRY_DSN", "")
-
-print("last.....................")
