@@ -13,8 +13,6 @@ BASE_DIR = dirname(dirname(__file__) + "../../../")
 
 CONFIG_ROOT = dirname(dirname(abspath(__file__)))
 
-
-
 # Absolute filesystem path to the project directory:
 PROJECT_ROOT = dirname(CONFIG_ROOT)
 
@@ -146,6 +144,7 @@ STATICFILES_FINDERS = (
 # Make this unique, and don"t share it with anybody.
 SECRET_KEY = env('DJANGO_SECRET_KEY', default="")
 
+# LOGIN_REDIRECT_URL = "user:redirect"
 # List of callables that know how to import templates from various sources.
 TEMPLATES = [
     {
@@ -185,7 +184,7 @@ ROOT_URLCONF = "library_management_cookiecutter.urls"
 WSGI_APPLICATION = "library_management_cookiecutter.wsgi.application"
 
 INSTALLED_APPS = [
-    "user.apps.UsersConfig",
+    # "user.apps.UsersConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -194,10 +193,10 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "django.contrib.messages",
+    "library",
 ]
 
-AUTH_USER_MODEL = "user.User"
-LOGIN_REDIRECT_URL = "user:redirect"
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -214,4 +213,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Dummy gettext function
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'login'
+AUTH_USER_MODEL ='library.User'
