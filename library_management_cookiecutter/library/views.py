@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.from typing import Any
 from django import http
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -70,14 +67,13 @@ class CreateUser(CreateView):
             return JsonResponse({"message": "success"})
         return JsonResponse({"message": user_form.errors}, status=400)
 
-
 class AddBooks(LoginRequiredMixin, MyCustomPermissions, CreateView):
     """add book"""
 
     login_url = "login"
     template_name = "add_book.html"
     form_class = AddBook
-    permission_required = {"GET": ["libray.add_book"]}
+    permission_required = {"GET": ["library.add_book"]}
 
     def post(self, request, *args, **kwargs):
         book_form = self.form_class(request.POST, request.FILES)
@@ -155,7 +151,7 @@ class AssignBookUser(View):
     def post(self, request, *args, **kwargs):
         user = request.user
         book = Book.objects.get(id=request.POST.get("book"))
-
+        
         if AssignedBook.objects.filter(book = book,user= user,is_deleted = False).exists():
             if request.POST.get('button_action') == "return_book":
 
@@ -192,10 +188,12 @@ class BookHistory(TemplateView):
 
         for assigned_book in assigned_books:
             book = Book.objects.get(id=assigned_book['book'])
-            assignments_count = AssignedBook.objects.filter(book=book, is_deleted=False).count()
-            assign_username = AssignedBook.objects.filter(book=book, is_deleted=False).values_list('user__username', flat=True)
-            returns_count = AssignedBook.objects.filter(book=book, is_deleted=True).count()
+            assign_username =  AssignedBook.objects.filter(book=book, is_deleted=False).values_list('user__username', flat=True)
+            assignments_count = assign_username.count()
+            # assign_username = assign_book
             return_name = AssignedBook.objects.filter(book=book, is_deleted=True).values_list('user__username',flat=True)
+            returns_count = return_name.count()
+            # return_name = returned_count
 
             book_list.append({
                 "name": book.book_name,
@@ -209,7 +207,7 @@ class BookHistory(TemplateView):
 def exportcsv(request):
     user = AssignedBook.objects.all()
     response = HttpResponse('text/csv')
-    response['Content-Disposition'] = 'attachment; filename=harsh.csv'
+    response['Content-Disposition'] = 'attachment; filename=user.csv'
     writer = csv.writer(response)
     writer.writerow(['User Name','book name','assign date','return date'])
     user_details = user.values_list('user__first_name','user__last_name','book__book_name','date_borrowed__date',"date_returned__date")
@@ -243,5 +241,3 @@ def exportcsv(request):
     os.remove(zip_filename)
     messages.success(request,"successfully send email.")
     return redirect('/')
-
-

@@ -69,18 +69,19 @@ DATABASES = {
     }
 }
 
-
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 
 
-EMAIL_BACKEND = env.str("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
-EMAIL_HOST = env.str("EMAIL_HOST", "")
-EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", False)
-EMAIL_PORT = env.int("EMAIL_PORT", 25)
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# EMAIL_BACKEND = env.str("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+# EMAIL_HOST = env.str("EMAIL_HOST", "")
+# EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
+# EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
+# EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", False)
+# EMAIL_PORT = env.int("EMAIL_PORT", 25)
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -179,7 +180,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "library_management_cookiecutter.urls"
-
+# ROOT_URLCONF = 'library.urls'
 # Python dotted path to the WSGI application used by Django"s runserver.
 WSGI_APPLICATION = "library_management_cookiecutter.wsgi.application"
 
@@ -194,9 +195,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.messages",
     "library",
+    'widget_tweaks',
 ]
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -216,3 +216,4 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL ='library.User'
+

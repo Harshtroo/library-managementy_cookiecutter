@@ -98,6 +98,7 @@
         imagesArray.push(file[0])
         displayImages()
     })
+    
     function displayImages() {
         let images = ""
         imagesArray.forEach((image, index) => {
@@ -108,7 +109,6 @@
         })
         document.getElementById("output").innerHTML = images
     }
-
 
     function bookdata() {
         var bookname = document.getElementById("id_book_name").value

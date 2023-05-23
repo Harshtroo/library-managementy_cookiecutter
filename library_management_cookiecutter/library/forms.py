@@ -8,15 +8,13 @@ from base.constance import Role
 
 class UserForm(forms.ModelForm):
     '''user forms'''
-    # password = forms.CharField(widget=forms.PasswordInput())
-    # role =
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     class Meta:
         '''userform meta class'''
         model = User
         fields = ["first_name","last_name","email","username","role"]
-    
+
 
     def save(self, commit=False):
         instance = super().save(commit=True)
@@ -30,9 +28,9 @@ class AddBook(forms.ModelForm):
         model = Book
         fields = ["book_image","book_name","author_name","price","quantity"]
 
-    
+
 class AsignBook(forms.ModelForm):
     class Meta:
         model = AssignedBook
         fields = ['user','book']
-        
+

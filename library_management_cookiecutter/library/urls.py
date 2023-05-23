@@ -18,5 +18,5 @@ urlpatterns = [
     path('user_assign_book_list/',views.AssignBookUser.as_view(),name="user_assign_book_list"),
     path('book_history/',views.BookHistory.as_view(),name="book_history"),
     path('csv/',views.exportcsv,name="csv"),
-    
+
 ]
