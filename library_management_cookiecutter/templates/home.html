@@ -1,0 +1,46 @@
+{% include 'base.html' %}
+<html>
+
+<head>
+    <style>
+        .home-background {
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            background: #468170;
+
+            
+        }
+
+        .home-background img {
+            max-height: 610px;
+            width: 100%;
+            object-fit: cover;
+            overflow: hidden;
+            /* padding: 2%; */
+            overflow-y: auto;
+            position: static;
+            background-color: rgb(89, 143, 102);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="home-background">
+        {% if messages %}
+        <ul class="alert alert-success" style="list-style-type: none">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}{% endif %}
+                {{ message }}
+                </li>
+                {% endfor %}
+        </ul>
+        {% endif %}
+        
+    <div class="home-background">
+        
+    </div>
+</body>
+</html>

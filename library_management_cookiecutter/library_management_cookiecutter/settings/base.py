@@ -13,19 +13,11 @@ BASE_DIR = dirname(dirname(__file__) + "../../../")
 
 CONFIG_ROOT = dirname(dirname(abspath(__file__)))
 
-
-
 # Absolute filesystem path to the project directory:
 PROJECT_ROOT = dirname(CONFIG_ROOT)
 
 env = environ.Env()
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 
-print(PROJECT_ROOT,"???????")
-
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(env_file=join(PROJECT_ROOT, '.env'))
 
 # Absolute filesystem path to the django repo directory:
 DJANGO_ROOT = dirname(PROJECT_ROOT)
@@ -61,23 +53,35 @@ MANAGERS = ADMINS
 ADMIN_URL = env.str("DJANGO_ADMIN_URL", "admin")
 
 DATABASES = {
-    'default': env.db("DATABASE_URL", default="mysql://root:root@localhost:3306/library_management_cookiecutter")
-}
-DATABASES['default']['ATOMIC_REQUESTS'] = True
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
-DATABASES["default"]["OPTIONS"] = {
-    "init_command": "SET default_storage_engine=InnoDB",
-    "charset": "utf8mb4",
-    "use_unicode": True,
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': 'library_management',
+
+        'USER': 'harsh',
+
+        'PASSWORD': 'harsh123',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+    }
 }
 
-EMAIL_BACKEND = env.str("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
-EMAIL_HOST = env.str("EMAIL_HOST", "")
-EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", False)
-EMAIL_PORT = env.int("EMAIL_PORT", 25)
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
+
+
+# EMAIL_BACKEND = env.str("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+# EMAIL_HOST = env.str("EMAIL_HOST", "")
+# EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
+# EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
+# EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", False)
+# EMAIL_PORT = env.int("EMAIL_PORT", 25)
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -87,28 +91,25 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = "Asia/Kuwait"
+TIME_ZONE = "UTC"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "en-us"
 
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-USE_L10N = True
+
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = normpath(join(PROJECT_ROOT, "media"))
+# MEDIA_ROOT = normpath(join(PROJECT_ROOT, "media"))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -144,6 +145,7 @@ STATICFILES_FINDERS = (
 # Make this unique, and don"t share it with anybody.
 SECRET_KEY = env('DJANGO_SECRET_KEY', default="")
 
+# LOGIN_REDIRECT_URL = "user:redirect"
 # List of callables that know how to import templates from various sources.
 TEMPLATES = [
     {
@@ -160,11 +162,8 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.template.context_processors.csrf",
                 "django.template.context_processors.tz",
-                
-                "django.template.context_processors.static",
-
-                
-            ]
+                "django.template.context_processors.static",            
+                ]
         },
     },
 ]
@@ -181,12 +180,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "library_management_cookiecutter.urls"
-
+# ROOT_URLCONF = 'library.urls'
 # Python dotted path to the WSGI application used by Django"s runserver.
 WSGI_APPLICATION = "library_management_cookiecutter.wsgi.application"
 
 INSTALLED_APPS = [
-    "user.apps.UsersConfig",
+    # "user.apps.UsersConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -195,11 +194,9 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "django.contrib.messages",
-    
+    "library",
+    'widget_tweaks',
 ]
-
-AUTH_USER_MODEL = "user.User"
-LOGIN_REDIRECT_URL = "user:redirect"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -216,41 +213,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-# KN_LOG_FILE_PATH = join(DJANGO_ROOT, "logs/log.log")
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'login'
+AUTH_USER_MODEL ='library.User'
 
-# from kn_defaults.logging.defaults import get_base_logging
-# LOGGING = get_base_logging(logstash=False)
-
-# KN_LOGGING_URL_PATTERNS = []
-
-LOCALE_PATHS = (normpath(join(PROJECT_ROOT, "locale")),)
-
-# Dummy gettext function
-gettext = lambda s: s
-
-LANGUAGES = [
-    ("en", gettext("en")),
-]
-
-
-
-CACHE_ENGINES = {
-    "dummy": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-    }
-}
-
-CACHES = {
-    "default": CACHE_ENGINES[env.str("CACHE", default="dummy")]
-}
-
-
-
-SENTRY_DSN = env.str("SENTRY_DSN", "")
-
-print("last.....................")
