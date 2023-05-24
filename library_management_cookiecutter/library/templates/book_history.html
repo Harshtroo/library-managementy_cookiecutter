@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+
+<html>
+<head>
+    <style>
+        .table {
+            width: 50%;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body id="book_items">
+
+</body>
+<script>
+    var csrf_token="{{csrf_token}}"
+</script>
+<script src="../static/js/book_history.js" data-bookHistoryURL = "{% url 'book_history' %}"></script>
+
+</html>

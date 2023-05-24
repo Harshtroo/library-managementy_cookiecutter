@@ -1,0 +1,92 @@
+{% include 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .home-background {
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            background: #468170;
+            padding-left: 2%;
+            padding-right: 3%;
+            padding-top: 2%;
+        }
+
+        .table-col {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05), 0 0 0 10px rgba(0, 0, 0, 0.05)
+        }
+
+        .thead {
+            background-color: #FFED86;
+        }
+
+        .card-body {
+            text-align: center;
+            align-self: center;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="home-background">
+        <div id="errormessage">
+        
+        </div>
+        <div class="row" id="bookcard">
+        {% for book in assign_book_data %}
+
+        
+            <div class="col-3">
+                <div class="card w-80 h-60 mx-auto">
+                <img src="{{book.book_image}}" style="height:100px;width:min-content;align-self:center">
+                <div class="card-body">
+                    <p class="card-title box.item.cupcake" id="book name" title={{book.book_name}}"><b>{{book.author_name|truncatechars:7}}</b></p>
+                    <button name="assign_book"  class="btn btn-primary" data-id ="{{book.id}}" id="bookbtn_{{book.id}}"  onclick="bookId(this)">Assign Book</button><br>
+                    
+                    <p style="margin-left:225px margin-bottom:-39px">Author Name:<br>{{book.author_name|truncatechars:7}}</p>
+                    <p style="margin-right:209px" id="total" >Total Quantity:{{book.quantity}}</p>
+                    <p style="margin-right:189px" id="available{{book.id}}">Available Quantity:{{book.available}}</p>
+                </div>
+                </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+    <div class="modal" id="userpopbox">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="align-items: center;">
+
+                <label for="cars">User List</label>
+                <select name="assignbook" id="option">
+                    {% for user in users %}
+                    <option value={{user.id}}>{{user.username}} ({{user.email}}) </option>
+                    {% endfor %}
+                </select>
+                {% csrf_token %}
+
+                <div class="modal-footer">
+                    <button name="customSubmit" type="button" type="submit" class="btn btn-danger" data-bs-dismiss="modal"
+                        onclick="selectUser()">submmit</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script >
+        var csrf_token="{{csrf_token}}"
+    </script>
+    <script src="../static/js/book_list.js" data-booklistURL = "{% url 'create_user' %}" >
+    </script>
+
+</body>
+
+</html>
