@@ -2,10 +2,11 @@
 Django settings for library_management_cookiecutter project.
 """
 
+import os
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
+
 import environ
-import os
 
 ########## PATH CONFIGURATION
 BASE_DIR = dirname(dirname(__file__) + "../../../")
@@ -45,32 +46,24 @@ path.append(CONFIG_ROOT)
 DEBUG = STAGING = env.bool("DJANGO_DEBUG", False)
 ########## END DEBUG CONFIGURATION
 
-ADMINS = (
-    ("""Your Name""", "Your Email"),
-)
+ADMINS = (("""Your Name""", "Your Email"),)
 
 MANAGERS = ADMINS
 
 ADMIN_URL = env.str("DJANGO_ADMIN_URL", "admin")
 
 DATABASES = {
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql',
-
-        'NAME': 'library_management',
-
-        'USER': 'harsh',
-
-        'PASSWORD': 'harsh123',
-
-        'HOST': 'localhost',
-
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "library_management",
+        "USER": "harsh",
+        "PASSWORD": "harsh123",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 
 
@@ -81,7 +74,6 @@ DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 # EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", False)
 # EMAIL_PORT = env.int("EMAIL_PORT", 25)
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -144,7 +136,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don"t share it with anybody.
-SECRET_KEY = env('DJANGO_SECRET_KEY', default="")
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="")
 
 # LOGIN_REDIRECT_URL = "user:redirect"
 # List of callables that know how to import templates from various sources.
@@ -163,8 +155,8 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.template.context_processors.csrf",
                 "django.template.context_processors.tz",
-                "django.template.context_processors.static",            
-                ]
+                "django.template.context_processors.static",
+            ]
         },
     },
 ]
@@ -196,7 +188,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.messages",
     "library",
-    'widget_tweaks',
+    "widget_tweaks",
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -214,7 +206,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = 'login'
-AUTH_USER_MODEL ='library.User'
-
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "login"
+AUTH_USER_MODEL = "library.User"

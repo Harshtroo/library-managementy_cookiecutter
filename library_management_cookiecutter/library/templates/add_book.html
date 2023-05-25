@@ -1,7 +1,7 @@
 {% include 'base.html' %}
 {% load static %}
 
-{% load widget_tweaks %}  
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
 
@@ -35,23 +35,23 @@
                                             <div id="output">
                                             </div>
                                             <!-- <div class="form-group"> -->
-                                            <i class="fa-solid fa-book"></i> 
-                                            
+                                            <i class="fa-solid fa-book"></i>
+
                                             {% render_field form.book_image|add_class:"form-control fa-solid fa-book" placeholder=form.book_image.label %}
                                             <p id="image_error" style="color: red;"></p><br>
-                                            
+
                                             <label>Book Name</label>
                                             {% render_field form.book_name class="form-control" placeholder=form.book_name.label %}
                                             <p id="bookname_error" style="color: red;"></p><br>
-                                            
+
                                             <label>Author Name</label>
                                             {% render_field form.author_name class="form-control" placeholder=form.author_name.label %}
                                             <p id="authorname_error" style="color: red;"></p><br>
-                                           
+
                                             <label>Price</label>
                                             {% render_field form.price class="form-control" placeholder=form.price.label %}
                                             <p id="price_error" style="color: red;"></p><br>
-                                            
+
                                             <label>Quantity</label>
                                             {% render_field form.quantity class="form-control" placeholder=form.quantity.label %}<br>
                                             <br>

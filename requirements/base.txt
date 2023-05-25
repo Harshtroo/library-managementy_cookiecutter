@@ -1,4 +1,4 @@
-# Django 
+# Django
 Django>=4.1,<4.3
 django-kn-defaults==0.3.2
 djvue==0.2.1
@@ -10,3 +10,4 @@ django-compressor==4.1
 django-environ==0.9.0
 pillow==9.5.0
 django-widget-tweaks==1.4.12
+pre-commit==3.3.2

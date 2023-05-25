@@ -7,18 +7,18 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
-EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
-SECRET_KEY = 'test'
+SECRET_KEY = "test"
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        'LOCATION': ''
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        "LOCATION": "",
     },
-    'redis': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    }
+    "redis": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+    },
 }

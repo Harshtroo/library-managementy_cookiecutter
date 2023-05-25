@@ -1,49 +1,55 @@
-{% include 'base.html' %}
-{% load static %}
+{% include 'base.html' %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/book_list.css' %}"
+    />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/book_list.css' %}">
-</head>
-
-<body>
-    
+  <body>
     <div class="home-background">
-        <div id="errormessage">
-        
-        </div>
-        <div class="row" id="bookcard">
-        </div>
+      <div id="errormessage"></div>
+      <div class="row" id="bookcard"></div>
     </div>
     <div class="modal" id="userpopbox">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content" style="align-items: center;">
-
-                <label for="cars">User List</label>
-                <select name="assignbook" id="option">
-                    {% for user in users %}
-                    <option value={{user.id}}>{{user.username}} ({{user.email}}) </option>
-                    {% endfor %}
-                </select>
-                <div class="modal-footer">
-                    <button name="customSubmit" type="button" type="submit" class="btn btn-danger" data-bs-dismiss="modal"
-                        onclick="selectUser()">submmit</button>
-                </div>
-            </div>
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="align-items: center">
+          <label for="cars">User List</label>
+          <select name="assignbook" id="option">
+            {% for user in users %}
+            <option value="{{user.id}}">
+              {{user.username}} ({{user.email}})
+            </option>
+            {% endfor %}
+          </select>
+          <div class="modal-footer">
+            <button
+              name="customSubmit"
+              type="button"
+              type="submit"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+              onclick="selectUser()"
+            >
+              submmit
+            </button>
+          </div>
         </div>
+      </div>
     </div>
     <script>
-        var csrf_token = "{{csrf_token}}"
+      var csrf_token = "{{csrf_token}}";
     </script>
-    <script src="{% static 'js/book_list.js' %}" data-bookListURL="{% url 'book_list' %}">
-
-    </script>
-
-</body>
-
+    <script
+      src="{% static 'js/book_list.js' %}"
+      data-bookListURL="{% url 'book_list' %}"
+    ></script>
+  </body>
 </html>

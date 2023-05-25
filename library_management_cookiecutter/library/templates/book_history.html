@@ -1,19 +1,20 @@
-{% include 'base.html' %}
-{% load static %}
+{% include 'base.html' %} {% load static %}
 
 <html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/book_history.css' %}"
+    />
+  </head>
 
-<head>
-    <link  rel="stylesheet" type="text/css" href="{% static 'css/book_history.css' %}"> 
-</head>
-
-<body id="book_items">
-
-</body>
-<script>
-    var csrf_token = "{{csrf_token}}"
-</script>
-<script src="{% static 'js/book_history.js' %}" dat-bookHistoryURL="{% url 'book_history' %}">
-</script>
-
+  <body id="book_items"></body>
+  <script>
+    var csrf_token = "{{csrf_token}}";
+  </script>
+  <script
+    src="{% static 'js/book_history.js' %}"
+    dat-bookHistoryURL="{% url 'book_history' %}"
+  ></script>
 </html>
