@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import TemplateView, CreateView, ListView,FormView
 from .models import User, Book,AssignedBook
-from .forms import UserForm, AddBook,  AsignBook
+from .forms import UserForm, AddBookForm,  AsignBookForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
 from django.http import HttpRequest, HttpResponse, JsonResponse
@@ -23,6 +23,7 @@ import zipfile
 import os
 import pyminizip
 from io import StringIO
+from .utils import bookHistory
 
 class Home(TemplateView):
     template_name = "home.html"
@@ -31,7 +32,7 @@ class Home(TemplateView):
 class Login(LoginView):
     """login class"""
 
-    template_name = "login.html"
+    
 
     def post(self, request, *args, **kwargs):
         username = request.POST.get("username", None)
@@ -45,7 +46,6 @@ class Login(LoginView):
 
 class Logout(LogoutView):
     """logout class"""
-
     pass
 
 
@@ -72,7 +72,7 @@ class AddBooks(LoginRequiredMixin, MyCustomPermissions, CreateView):
 
     login_url = "login"
     template_name = "add_book.html"
-    form_class = AddBook
+    form_class = AddBookForm
     permission_required = {"GET": ["library.add_book"]}
 
     def post(self, request, *args, **kwargs):
@@ -88,7 +88,6 @@ class AddBooks(LoginRequiredMixin, MyCustomPermissions, CreateView):
 
 class SuccessMessage(TemplateView):
     """ success class"""
-
     template_name = "successpage.html"
 
 
@@ -97,7 +96,7 @@ class BookList(FormView):
     login_url = "login"
     model = Book
     template_name = "book_list.html"
-    form_class = AsignBook
+    form_class = AsignBookForm
 
     def get(self, request, *args, **kwargs):
         if request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest":
@@ -120,7 +119,7 @@ class BookList(FormView):
         return render(request, "book_list.html",context={'users':User.objects.all()})
 
     def post(self, request, *args, **kwargs):
-        form = AsignBook(request.POST)
+        form = AsignBookForm(request.POST)
         if form.is_valid():
             user = User.objects.get(id=request.POST.get("user"))
             book = Book.objects.get(id=request.POST.get("book"))
@@ -142,7 +141,7 @@ class AssignBookUser(View):
     template_name = 'user_assign_book_list.html'
     model = AssignedBook
     queryset = AssignedBook.objects.filter(is_deleted = False)
-
+    
     def get(self, request,*args, **kwargs):
         assign_book_list = list(AssignedBook.objects.filter(user= request.user,is_deleted=False))
         assign_book_data = [{'id': assign_book.book.id, 'book': assign_book.book.book_name} for assign_book in assign_book_list]
@@ -183,25 +182,9 @@ class BookHistory(TemplateView):
     model =AssignedBook
 
     def post(self,request,*args,**kwargs):
-        assigned_books = AssignedBook.objects.values("book").annotate(count=Count("book"))
-        book_list = []
+        
 
-        for assigned_book in assigned_books:
-            book = Book.objects.get(id=assigned_book['book'])
-            assign_username =  AssignedBook.objects.filter(book=book, is_deleted=False).values_list('user__username', flat=True)
-            assignments_count = assign_username.count()
-            # assign_username = assign_book
-            return_name = AssignedBook.objects.filter(book=book, is_deleted=True).values_list('user__username',flat=True)
-            returns_count = return_name.count()
-            # return_name = returned_count
-
-            book_list.append({
-                "name": book.book_name,
-                "assign_count": assignments_count,
-                "return_count": returns_count,
-                "assign_user":list(assign_username),
-                "return_name":list(return_name)
-            })
+        book_list = bookHistory()
         return JsonResponse({"book_list": book_list})
 
 def exportcsv(request):

@@ -1,0 +1,24 @@
+.home-background {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: #468170;
+    padding-left: 2%;
+    padding-right: 3%;
+    padding-top: 2%;
+}
+
+.table-col {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05), 0 0 0 10px rgba(0, 0, 0, 0.05)
+}
+
+.thead {
+    background-color: #FFED86;
+}
+
+.card-body {
+    text-align: center;
+    align-self: center;
+}

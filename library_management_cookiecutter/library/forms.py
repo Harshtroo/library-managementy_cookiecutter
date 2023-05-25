@@ -3,7 +3,6 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import User,Book,AssignedBook
 from base.constance import Role
-# from tweak import render_field
 
 
 class UserForm(forms.ModelForm):
@@ -23,14 +22,14 @@ class UserForm(forms.ModelForm):
             instance.save()
         return instance
 
-class AddBook(forms.ModelForm):
+class AddBookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ["book_image","book_name","author_name","price","quantity"]
 
 
-class AsignBook(forms.ModelForm):
+class AsignBookForm(forms.ModelForm):
     class Meta:
         model = AssignedBook
-        fields = ['user','book']
+        fields = ["user","book"]
 

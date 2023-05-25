@@ -7,8 +7,6 @@ class MyCustomPermissions(PermissionRequiredMixin):
     
     def has_permission(self):
         user_permissions = self.request.user.get_all_permissions()
-        # print(self.permission_required)
-        print(self.request.method)
         if self.request.method == "GET":
             if self.permission_required.get('GET')[0] in user_permissions:
                 return True

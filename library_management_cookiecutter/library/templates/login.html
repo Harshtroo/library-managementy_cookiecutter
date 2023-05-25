@@ -1,15 +1,11 @@
 {% include 'base.html' %}
+{% load static %}
 
 <!DOCTYPE html>
 <html>
 
 <head>
-  <style>
-    .background {
-      background: #468170;
-
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 </head>
 
 <body>
@@ -86,36 +82,10 @@
   </section>
 </body>
 <script>
-  function logindata() {
-    var username = document.getElementById("username").value
-    var password = document.getElementById("password").value
-
-    var data = {
-      "username": username,
-      "password": password,
-    }
-    $.ajax({
-      url: "{% url 'login' %}",
-      type: "POST",
-      headers: { "X-CSRFToken": "{{csrf_token}}" },
-      data: data,
-      success: function (data) {
-        if (data.message == "success") {
-          window.location.href = "{% url 'home'%}"
-        }
-      },
-      error: function (data, a, b) {
-
-        console.log(a)
-        console.log(b)
-        console.log(data.responseJSON.message)
-        document.getElementById("error").innerHTML += data.responseJSON.message
-
-
-      },
-
-    });
-  }
+  var csrf_token = "{{csrf_token}}"
+</script>
+<script src="{% static 'js/login.js' %}" data-loginURL="{% url 'login' %}">
+   
 </script>
 
 </html>

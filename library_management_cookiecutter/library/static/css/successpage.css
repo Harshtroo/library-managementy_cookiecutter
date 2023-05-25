@@ -1,0 +1,7 @@
+.gradient-custom{
+    background-color: hwb(187 71% 19%);
+
+    background: -webkit-linear-gradient(to bottom right, hsl(280, 25%, 60%), hsl(245, 30%, 65%));
+
+    background: linear-gradient(to bottom right, hsl(197, 34%, 34%), hsl(209, 32%, 44%));
+}
