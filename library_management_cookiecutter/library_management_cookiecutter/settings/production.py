@@ -38,9 +38,9 @@ sentry_logging = LoggingIntegration(
     event_level=logging.ERROR,  # Send errors as events
 )
 sentry_sdk.init(
-    dsn=SENTRY_DSN, 
+    dsn=SENTRY_DSN,
     integrations=[sentry_logging, DjangoIntegration()],
-    send_default_pii=True
+    send_default_pii=True,
 )
 
 ENABLE_APM = env.bool("ENABLE_APM", default=True)
@@ -53,6 +53,3 @@ if ENABLE_APM:
         "SERVER_URL": ELASTIC_APM_IP,
         "DJANGO_TRANSACTION_NAME_FROM_ROUTE": True,
     }
-
-
-
