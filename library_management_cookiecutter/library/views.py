@@ -11,7 +11,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.views import LoginView, LogoutView
-from django.core import serializers
 from django.core.mail import EmailMessage
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponse, JsonResponse
@@ -20,7 +19,6 @@ from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView, FormView, ListView, TemplateView
-
 from .forms import AddBookForm, AsignBookForm, UserForm
 from .mixin import MyCustomPermissions
 from .models import AssignedBook, Book, User
@@ -46,7 +44,6 @@ class Login(LoginView):
 
 class Logout(LogoutView):
     """logout class"""
-
     pass
 
 
