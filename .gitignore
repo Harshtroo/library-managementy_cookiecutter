@@ -1,4 +1,3 @@
-library_management_cookiecutter/library_management_cookiecutter/settings/dev.py
 *.py[co]
 *.sw[po]
 *.egg*
@@ -37,3 +36,4 @@ togit.sh
 htmlcov/
 .env
 .vscode/*
+/home/ashishv/library_cookiecutter/library_management_cookiecutter/library_management_cookiecutter/library_management_cookiecutter.db

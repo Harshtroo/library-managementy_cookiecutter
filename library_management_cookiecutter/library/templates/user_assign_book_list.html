@@ -1,0 +1,79 @@
+{% include 'base.html' %} {% load static %}
+
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/user_assign_book_list.css' %}"
+    />
+  </head>
+
+  <body>
+    <div id="message"></div>
+    <div class="align-middle table">
+      <h3 align="center">Book List</h3>
+      <table class="table table-bordered" align="center">
+        <thead>
+          <tr class="table-dark">
+            <th scope="col">id</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Return Book</th>
+            <th scope="col">Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for assign_user in assign_book_data %}
+          <tr>
+            <td>{{assign_user.id}}</td>
+            <td>{{assign_user.book}}</td>
+            <td>
+              <button
+                type="button"
+                name="return_btn"
+                book_id="{{assign_user.id}}"
+                id="return_book"
+                class="btn btn-primary"
+                onclick="returnBook(this)"
+              >
+                Return Book
+              </button>
+            </td>
+            <td>
+              <button
+                type="button"
+                name="count_btn"
+                class="btn btn-primary"
+                book_id="{{assign_user.id}}"
+                onclick="count(this)"
+              >
+                Count
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal" id="userpopbox">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="align-items: center">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            style="margin-left: auto"
+          ></button>
+          <h4>Book History</h4>
+          <div class="modal-body" style="width: 500px"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var csrf_token = "{{csrf_token}}";
+  </script>
+  <script src="{% static 'js/user_assign_book.js' %}"></script>
+</html>
