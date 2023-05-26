@@ -61,7 +61,6 @@ function bookdata() {
       document.getElementById("price_error").innerHTML =
         data.responseJSON.message.price[0];
 
-      console.log("error", error);
     },
   });
 }

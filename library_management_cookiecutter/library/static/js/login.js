@@ -20,9 +20,6 @@ function logindata() {
       }
     },
     error: function (data, a, b) {
-      console.log(a);
-      console.log(b);
-      console.log(data.responseJSON.message);
       document.getElementById("error").innerHTML += data.responseJSON.message;
     },
   });
