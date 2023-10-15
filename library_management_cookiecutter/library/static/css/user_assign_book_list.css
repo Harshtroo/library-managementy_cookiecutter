@@ -1,0 +1,21 @@
+.table {
+  margin-left: 20px;
+  width: 70%;
+  margin: 0px auto;
+  margin-top: 20px;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
